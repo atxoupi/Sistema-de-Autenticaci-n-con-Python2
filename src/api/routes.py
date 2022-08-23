@@ -26,10 +26,10 @@ def login():
     user = User.query.filter_by(email=email).first()
     if user is None:
         return jsonify({"msg": "Usuario no existe"}), 404 
-    # comprobacion=current_app.bcrypt.check_password_hash(user.password, password)
+    comprobacion=current_app.bcrypt.check_password_hash(user.password, password)
     
-    # if email != user.email or comprobacion == False:
-    if email != user.email or password != user.password:
+    if email != user.email or comprobacion == False:
+    # if email != user.email or password != user.password:
         return jsonify({"msg": "Bad username or password"}), 401 
     
     
@@ -42,8 +42,8 @@ def signup():
     password = request.json.get("password", None)
     
 
-    # pw_hash = current_app.bcrypt.generate_password_hash(password).decode("utf-8")
-    user = User(email=email, password=password,is_active=True)
+    pw_hash = current_app.bcrypt.generate_password_hash(password).decode("utf-8")
+    user = User(email=email, password=pw_hash,is_active=True)
     db.session.add(user)
     db.session.commit()
 

@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
 import { Link } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
 export const Signup = () => {
   const [email, setEmail] = useState("");
@@ -13,6 +14,7 @@ export const Signup = () => {
     if (password === password1) {
       e.preventDefault();
       actions.createUser(email, password);
+      window.location.href = "./private";
     } else alert("Passwords do not match");
   };
 
@@ -59,7 +61,7 @@ export const Signup = () => {
             <button type="submit" className="btn btn-primary">
               SignUp Please!!!
             </button>
-            <Link to="/login" className="btn btn-primary">
+            <Link to="/" className="btn btn-primary">
               Cancel
             </Link>
           </div>
